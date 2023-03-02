@@ -1,3 +1,4 @@
+import java.lang.reflect.Method;
 import java.util.*;;
 
 public class App {
@@ -8,22 +9,18 @@ public class App {
 			Scanner sc = new Scanner(System.in);
         	System.out.println("실행할 Test 번호를 입력하세요.");
 			
-			switch(sc.nextLine()){
-				case "1" : 
-						new Test01().run();
-						break;
-				case "2" : 
-						new Test02().run();
-						break;
-				case "3" : 
-						new Test03().run();
-						break;
-				case "4" : 
-						new Test04().run();
-						break;
-				default :
-						break;
+			String classNum = sc.nextLine();
+			if (classNum.length() == 1) {
+				classNum = "0" + classNum;
 			}
+			String ClassName = "Test" + classNum;
+			
+			Class<?> runClass = Class.forName(ClassName);
+			Object tmpObj = runClass.getDeclaredConstructor().newInstance();
+			Method run = runClass.getDeclaredMethod("run");
+			run.invoke(tmpObj);
+
+			sc.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
