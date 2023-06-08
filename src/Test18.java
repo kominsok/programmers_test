@@ -11,6 +11,7 @@ public class Test18 {
         int[] arr = {0, 1, 2, 3, 4, 5};
         int[] query = {4, 1, 2};
         System.out.println(Arrays.toString(this.solution(arr, query)));
+        
     }
 
     public int[] solution(int[] arr, int[] query) {
@@ -18,9 +19,31 @@ public class Test18 {
         int[] answer = arr;
         for (int i = 0; i < query.length; i++){
 
-            int[] tmp = slice(answer, query[i]);
+            //int[] tmp = slice(answer, i);
+            int n = query[i];
 
-            answer = tmp;
+            int j = 0;
+            if ((i % 2) == 0){
+                int[] ret = new int[n + 1];
+                //짝수
+                for(j = 0; j <= n; j++){
+                    ret[j] = answer[j];
+                }
+                answer = ret;
+            }
+            else{
+                int[] ret = new int[answer.length - n];
+                //홀수
+                int count = 0;
+                for(j = n; j < answer.length; j++){
+                    ret[count] = answer[j];
+                    count++;
+                }
+
+                answer = ret;
+            }
+
+            
         }
         return answer;
     }
